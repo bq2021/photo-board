@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인페이지</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                    to top,
+                    rgba(255, 255, 255, 0) 10%,
+                    rgba(255, 255, 255, 0.5) 25%,
+                    rgba(255, 255, 255, 0.7) 40%,
+                    rgba(255, 255, 255, 0.7) 50%,
+                    rgba(255, 255, 255, 0.7) 75%,
+                    rgba(255, 255, 255, 0.7) 100%
+            ), url("https://source.unsplash.com/random/?space");
+
+        }
+    </style>
+</head>
+<body>
+    <h1 th:text="#{test}"></h1>
+    <div class="jumbotron">
+        <h1 class="display-4" th:text="${title}"></h1>
+        <p class="lead" th:text="${intro}"></p>
+        <hr class="my-4">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" href="/board/list">사진 보기</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

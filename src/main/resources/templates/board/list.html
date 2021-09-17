@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사진 게시판 리스트</title>
+    <th:block th:replace="@{common/librarys} :: librarys"></th:block>
+</head>
+<body>
+    <th:block th:replace="@{common/navbar} :: getNavBar(${title})"></th:block>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col p-2" th:each="photo: ${photos}">
+            <div class="card">
+                <a th:href="'/board/detail/'+${photo.id}">
+                    <img height="300px" th:src="${photo.imageUrl}" class="card-img-top" alt="...">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">[[${photo.title}]]</h5>
+                    <p class="card-text">[[${photo.content}]]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        console.log([[${photos}]]);
+    </script>
+</body>
+</html>

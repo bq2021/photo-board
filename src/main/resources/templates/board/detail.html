@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="@{common/librarys} :: librarys"></th:block>
+</head>
+<body>
+<th:block th:replace="@{common/navbar} :: getNavBar(${title})"></th:block>
+    <div class="card col-12 p-3">
+        <img th:src="${photo.imageUrl}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">[[${photo.title}]]</h5>
+            <p class="card-text">[[${photo.content}]]</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">작성자 : [[${photo.writer}]]</li>
+            <li class="list-group-item">등록일 : [[${photo.generateDate}]]</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">이전 게시글</a>
+            <a href="#" class="card-link">다음 게시글</a>
+        </div>
+    </div>
+</body>
+</html>

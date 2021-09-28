@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>사진 게시판 리스트</title>
-    <th:block th:replace="@{common/librarys} :: librarys"></th:block>
+    <th:block th:replace="@{/common/librarys} :: librarys"></th:block>
 </head>
 <body>
-    <th:block th:replace="@{common/navbar} :: getNavBar(${title})"></th:block>
+    <th:block th:replace="@{/common/navbar} :: getNavBar(${title})"></th:block>
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col p-2" th:each="photo: ${photos}">
             <div class="card">

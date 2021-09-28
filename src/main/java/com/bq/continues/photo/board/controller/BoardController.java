@@ -3,15 +3,17 @@ package com.bq.continues.photo.board.controller;
 import com.bq.continues.photo.board.entity.Photo;
 import com.bq.continues.photo.board.respository.VolatileRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("/board")
 @Slf4j
 public class BoardController {
 
@@ -61,31 +63,52 @@ public class BoardController {
         );
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public String listController(Model model) {
         model.addAttribute("title", "사진 게시판");
         model.addAttribute("photos", volatileRepo.findAll());
-        return "board/list";
+        return "/board/list";
     }
 
-    @GetMapping("detail/{id}")
+    @GetMapping("/detail/{id}")
     public String detailController(Model model, @PathVariable("id") long id) {
         model.addAttribute("title", String.valueOf(id) + "번 게시글");
         model.addAttribute("photo", volatileRepo.findById(id));
-        return "board/detail";
+        return "/board/detail";
     }
 
-    @GetMapping("write")
+    @GetMapping("/write")
     public String moveWritePageController(Model model) {
         model.addAttribute("title", "게시글 등록");
-        return "board/write";
+        return "/board/write";
     }
 
-    @PostMapping("write")
+    @PostMapping("/write")
     public String writeController(Photo photo) {
         log.info("{}", photo);
-        volatileRepo.save(photo.getId(),photo);
-        return "redirect:list";
+        volatileRepo.save(photo.getId(), photo);
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/update/{id}")
+    public String moveUpdatePageController(Model model, @PathVariable("id") long id) {
+        model.addAttribute("title", String.valueOf(id) + "번 게시글");
+        model.addAttribute("photo", volatileRepo.findById(id));
+        return "/board/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateController(Model model, Photo photo, @PathVariable("id") long id) {
+        volatileRepo.update(id, photo);
+        model.addAttribute("title", id);
+        model.addAttribute("photo", volatileRepo.findById(id));
+        return "/board/detail";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteController(@PathVariable("id") long id) {
+        volatileRepo.delete(id);
+        return "redirect:/board/list";
     }
 
 }

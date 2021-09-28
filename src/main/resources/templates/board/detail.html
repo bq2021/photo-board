@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <th:block th:replace="@{common/librarys} :: librarys"></th:block>
+    <th:block th:replace="@{/common/librarys} :: librarys"></th:block>
 </head>
 <body>
-<th:block th:replace="@{common/navbar} :: getNavBar(${title})"></th:block>
-    <div class="card col-12 p-3">
-        <img th:src="${photo.imageUrl}" class="card-img-top" alt="...">
+    <th:block th:replace="@{/common/navbar} :: getNavBar(${title})"></th:block>
+    <div class="card col-12 p-3" th:object="${photo}">
+        <img th:src="*{imageUrl}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">[[${photo.title}]]</h5>
-            <p class="card-text">[[${photo.content}]]</p>
+            <h5 class="card-title">[[*{title}]]</h5>
+            <p class="card-text">[[*{content}]]</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">작성자 : [[${photo.writer}]]</li>
-            <li class="list-group-item">등록일 : [[${photo.generateDate}]]</li>
+            <li class="list-group-item">작성자 : [[*{writer}]]</li>
+            <li class="list-group-item">등록일 : [[*{generateDate}]]</li>
         </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">이전 게시글</a>
-            <a href="#" class="card-link">다음 게시글</a>
-        </div>
+    </div>
+    <div class="row" th:object="${photo}">
+        <form class="col-6" method="get" th:action="'/board/update/'+*{id}">
+            <button class="btn btn-warning col-12 m-0" id="update">게시글 수정</button>
+        </form>
+        <form class="col-6" method="post" th:action="'/board/delete/'+*{id}">
+            <button class="btn btn-danger col-12 m-0" id="delete">게시글 삭제</button>
+        </form>
+    </div>
+    <div class="card-body text-center">
+        <a href="#" class="card-link">이전 게시글</a>
+        <a href="#" class="card-link">다음 게시글</a>
     </div>
 </body>
 </html>
